@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="6809dc91-0dbd-46c4-8a27-9e26b48e4e43" name="Default Changelist" comment="" />
+    <list default="true" id="6809dc91-0dbd-46c4-8a27-9e26b48e4e43" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/WebCrawler.go" beforeDir="false" afterPath="$PROJECT_DIR$/WebCrawler.go" afterDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -15,7 +18,11 @@
     </option>
   </component>
   <component name="GOROOT" path="/usr/local/go" />
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
   <component name="ProjectId" id="1ubVq8c5gu3BdFIh6z4kRIiujTK" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -26,6 +33,12 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
     <property name="last_opened_file_path" value="$USER_HOME$" />
+    <property name="node.js.detected.package.eslint" value="true" />
+    <property name="node.js.detected.package.tslint" value="true" />
+    <property name="node.js.path.for.package.eslint" value="project" />
+    <property name="node.js.path.for.package.tslint" value="project" />
+    <property name="node.js.selected.package.eslint" value="(autodetect)" />
+    <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RunManager">
@@ -49,9 +62,44 @@
     <option name="version" value="3" />
   </component>
   <component name="WindowStateProjectService">
+    <state x="829" y="426" key="Github.ShareDialog" timestamp="1624935132907">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state x="829" y="426" key="Github.ShareDialog/0.0.1920.1053@0.0.1920.1053" timestamp="1624935132907" />
+    <state x="802" y="234" width="306" height="577" key="Github.UntrackedFilesDialog" timestamp="1624935139469">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state x="802" y="234" width="306" height="577" key="Github.UntrackedFilesDialog/0.0.1920.1053@0.0.1920.1053" timestamp="1624935139469" />
+    <state width="1358" height="264" key="GridCell.Tab.0.bottom" timestamp="1624985408559">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state width="1358" height="264" key="GridCell.Tab.0.bottom/0.0.1920.1053@0.0.1920.1053" timestamp="1624985408559" />
+    <state width="1358" height="264" key="GridCell.Tab.0.center" timestamp="1624985408558">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state width="1358" height="264" key="GridCell.Tab.0.center/0.0.1920.1053@0.0.1920.1053" timestamp="1624985408558" />
+    <state width="1358" height="264" key="GridCell.Tab.0.left" timestamp="1624985408558">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state width="1358" height="264" key="GridCell.Tab.0.left/0.0.1920.1053@0.0.1920.1053" timestamp="1624985408558" />
+    <state width="1358" height="264" key="GridCell.Tab.0.right" timestamp="1624985408559">
+      <screen x="0" y="0" width="1920" height="1053" />
+    </state>
+    <state width="1358" height="264" key="GridCell.Tab.0.right/0.0.1920.1053@0.0.1920.1053" timestamp="1624985408559" />
     <state x="464" y="161" key="SettingsEditor" timestamp="1624935089024">
       <screen x="0" y="0" width="1920" height="1053" />
     </state>
     <state x="464" y="161" key="SettingsEditor/0.0.1920.1053@0.0.1920.1053" timestamp="1624935089024" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint suspend="NONE" type="DlvLineBreakpoint">
+          <url>file://$PROJECT_DIR$/WebCrawler.go</url>
+          <line>82</line>
+          <option name="timeStamp" value="2" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

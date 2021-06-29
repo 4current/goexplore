@@ -1,22 +1,21 @@
 package main
 
 import (
-"fmt"
-"sync"
+	"fmt"
+	"sync"
 )
 
 // SafeRegister is safe to use concurrently.
 type SafeRegister struct {
 	mu sync.Mutex
-	v  []string
-	o  int
+	v  map[string]bool
 }
 
 // Add increments the counter for the given key.
 func (c *SafeRegister) Add(url string) {
 	c.mu.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
-	c.v = append(c.v, url)
+	c.v[url] = true
 	c.mu.Unlock()
 }
 
@@ -25,36 +24,11 @@ func (c *SafeRegister) In(url string) bool {
 	c.mu.Lock()
 	// Lock so only one goroutine at a time can access the map c.v.
 	defer c.mu.Unlock()
-	for _, u := range c.v {
-		if url == u {
-			return true
-		}
-	}
-	return false
+	return c.v[url]
 }
-
-func (c *SafeRegister) Inc() {
-	c.mu.Lock()
-	c.o++
-	c.mu.Unlock()
-}
-
-func (c *SafeRegister) Dec() {
-	c.mu.Lock()
-	c.o--
-	c.mu.Unlock()
-}
-
-func (c *SafeRegister) Count() int {
-	c.mu.Lock()
-	defer c.mu.Unlock()
-	return c.o
-}
-
 
 var (
-	sreg     = SafeRegister{v: make([]string, 0)}
-	ch = make(chan string)
+	sreg = SafeRegister{v: make(map[string]bool, 0)}
 )
 
 type Fetcher interface {
@@ -65,54 +39,55 @@ type Fetcher interface {
 
 // Crawl uses fetcher to recursively crawl
 // pages starting with url, to a maximum of depth.
-func Crawl(url string, depth int, fetcher Fetcher) {
+func Crawl(url string, depth int, fetcher Fetcher) <-chan string {
 
-	sreg.Inc()
-	defer sreg.Dec()
+	// Create a channel to be returned by function
+	ch := make(chan string)
+	chin := make(<-chan string)
 
-	if depth <= 0 {
-		return
-	}
+	go func() {
+		defer close(ch)
 
-	var (
-		body string
-		err  error
-		urls []string
-	)
+		if depth <= 0 {
+			return
+		}
 
-	if sreg.In(url) {
-		err = fmt.Errorf("already fetched %s", url)
-	} else {
-		body, urls, err = fetcher.Fetch(url)
-	}
+		var (
+			body string
+			err  error
+			urls []string
+		)
 
-	if err != nil {
-		ch <- err.Error()
-		return
-	}
-	sreg.Add(url)
+		if sreg.In(url) {
+			ch <- fmt.Sprintf("already fetched %s", url)
+			return
+		} else {
+			body, urls, err = fetcher.Fetch(url)
+		}
 
-	ch <- fmt.Sprintf("found: %s %q\n", url, body)
+		if err != nil {
+			ch <- err.Error()
+			return
+		}
+		sreg.Add(url)
+		ch <- fmt.Sprintf("found: %s %q\n", url, body)
 
-	for _, u := range urls {
-		go Crawl(u, depth-1, fetcher)
-	}
-
-	return
+		for _, u := range urls {
+			chin = Crawl(u, depth-1, fetcher)
+			for res := range chin {
+				ch <- res
+			}
+		}
+	}()
+	return ch
 }
 
 func main() {
-	go Crawl("https://golang.org/", 4, fetcher)
+	ch := Crawl("https://golang.org/", 4, fetcher)
 
 	// now we must create an event loop
-	for sreg.Count() == 0 {}
-	for sreg.Count() > 0 {
-		for res := range ch {
-			fmt.Println(res)
-			if sreg.Count() == 0 {
-				break
-			}
-		}
+	for res := range ch {
+		fmt.Println(res)
 	}
 }
 
